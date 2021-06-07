@@ -18,26 +18,15 @@ namespace Calculatorium_2
         //this shit created automatically
         private void decime_TextChanged(object sender, EventArgs e)
         {
-            
-        }
+            Int64 iNum = 0;
+            string numDec = "0";
+            string bufDec = decime.Text;
+            if (bufDec == "")
+            { bufDec = "0"; }
+            else { numDec = bufDec; }
 
-        private void hexito_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void la_binare_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-        //end of shit
-        //start button block when u click u get result
-        private void dec_il_pulsante_Click(object sender, EventArgs e) 
-        {
-            string numDec = decime.Text;
-            decime.Text = numDec;
-
-            Int32 iNum = Convert.ToInt32(numDec, 10);//Int32 max value 2147483647
+            if (Convert.ToInt64(numDec) <= 9223372036854775807)
+            { iNum = Convert.ToInt64(numDec, 10); }
 
             string shex = Convert.ToString(iNum, 16);
             hexito.Text = shex.ToUpper();
@@ -45,12 +34,17 @@ namespace Calculatorium_2
             la_binare.Text = sbin;
         }
 
-        private void heximito_Click(object sender, EventArgs e)
+        private void hexito_TextChanged(object sender, EventArgs e)
         {
-            string numHex = hexito.Text;
-            hexito.Text = numHex;
+            Int64 iNum = 0;
+            string numHex = "0";
+            string bufHex = hexito.Text;
+            if (bufHex == "")
+            { bufHex = "0"; }
+            else { numHex = bufHex; }
 
-            Int32 iNum = Convert.ToInt32(numHex, 16);//Int32 max value 2147483647
+            if (Convert.ToInt64(numHex, 16) <= 0x7FFFFFFFFFFFFFFF)
+            { iNum = Convert.ToInt64(numHex, 16); }
 
             string sdec = Convert.ToString(iNum, 10);
             decime.Text = sdec.ToUpper();
@@ -58,19 +52,25 @@ namespace Calculatorium_2
             la_binare.Text = sbin;
         }
 
-        private void binarito_Click(object sender, EventArgs e)
+        private void la_binare_TextChanged(object sender, EventArgs e)
         {
-            string numBin = la_binare.Text;
-            la_binare.Text = numBin;
+            Int64 iNum = 0;
+            string numBin = "0";
+            string bufBin = la_binare.Text;
+            if (bufBin == "")
+            { bufBin = "0"; }
+            else { numBin = bufBin; }
 
-            Int32 iNum = Convert.ToInt32(numBin, 2);//Int32 max value 2147483647
+            if (Convert.ToInt64(numBin, 2) <= 0b0111111111111111111111111111111111111111111111111111111111111111)
+            { iNum = Convert.ToInt64(numBin, 2); }
 
             string sdec = Convert.ToString(iNum, 10);
             decime.Text = sdec.ToUpper();
             string shex = Convert.ToString(iNum, 16);
             hexito.Text = shex;
         }
-        //end button block
+        //end of shit
+        
         //this und below check correct entering data in field
         private void decime_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -87,5 +87,12 @@ namespace Calculatorium_2
             if (!BinLetters.Contains(e.KeyChar)) { e.Handled = true; }
         }
         //end check correct entering data
+
+        private void la_pulsante_uno_plus_MouseClick(object sender, MouseEventArgs e)
+        {
+            Int64 plusField = Convert.ToInt64(decime.Text);
+            plusField++;
+            decime.Text = Convert.ToString(plusField);
+        }        
     }
 }
